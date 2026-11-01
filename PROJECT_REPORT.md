@@ -278,19 +278,168 @@ ALGORITHM:
 ---
 
 ## 7. DATA DESIGN AND FILE HANDLING
-### 7.1 Suggested Data Fields
-| Field Name | Data Type | Purpose | Example |
-| :--- | :--- | :--- | :--- |
-| `unit` | `int` | Syllabus unit number (1 to 5) | `1` |
-| `co_number` | `int` | Course Outcome identifier (CO1 to CO5) | `1` |
-| `topic` | `char[64]` | Topic name within unit | `Linear Data Structures` |
-| `cognitive_level` | `int` | Bloom's taxonomy level (1 to 6) | `3` (L3 Apply) |
-| `marks` | `int` | Marks allocated to question | `10` |
-| `q_no` | `char[16]` | Question label | `Q1(b)` |
-| `content` | `char[256]` | Question statement text | `Implement Doubly Linked List` |
+### 7.1 Data Dictionary and Entity Specifications
+The system is built upon four primary structural entities that model the institutional blueprint rules, submitted examination questions, aggregate compliance statistics, and finalized audit certificates.
 
-### 7.2 C File Handling
-File input/output is implemented using standard C file streams (`fopen`, `fprintf`, `fscanf`, `fgets`, `fclose`). Files include `blueprint.txt`, `question_paper.txt`, `audit_report.txt`, and `audit_report.csv`.
+#### 7.1.1 Blueprint Rule Entity (`BlueprintItem`)
+Defines the institutional expectation for each question item or section allocated within the curriculum syllabus:
+| Field Name | C Data Type | Constraints & Range | Nullable | Functional Description | Example |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `rule_id` | `int` | $\ge 1$, Auto-increment | No | Unique identifier for the blueprint rule | `1` |
+| `unit` | `int` | $1 \le \text{unit} \le 5$ | No | Syllabus unit number from syllabus curriculum | `1` |
+| `co_number` | `int` | $1 \le \text{co} \le 5$ | No | Course Outcome mapping (CO1 to CO5) | `1` |
+| `topic` | `char[64]` | Max 63 chars + `\0` | No | Topic descriptor within the designated unit | `Linear Data Structures` |
+| `cognitive_level` | `int` | $1 \le \text{level} \le 6$ | No | Bloom's Revised Taxonomy level (L1–L6) | `3` (Apply) |
+| `expected_questions` | `int` | $1 \le \text{count} \le 10$ | No | Number of questions expected for this rule | `1` |
+| `expected_marks` | `int` | $1 \le \text{marks} \le 70$ | No | Target marks allocated to this rule specification | `7` |
+
+#### 7.1.2 Examination Question Entity (`Question`)
+Stores individual questions submitted by the course faculty or paper setter:
+| Field Name | C Data Type | Constraints & Range | Nullable | Functional Description | Example |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `q_no` | `char[16]` | Alphanumeric, max 15 chars | No | Formal question label or sub-question designation | `Q1(a)` |
+| `content` | `char[256]` | Max 255 chars + `\0` | No | Full natural language question statement text | `Define Doubly Linked List.` |
+| `unit` | `int` | $1 \le \text{unit} \le 5$ | No | Assigned syllabus unit number | `1` |
+| `co_number` | `int` | $1 \le \text{co} \le 5$ | No | Assigned Course Outcome (CO1 to CO5) | `1` |
+| `topic` | `char[64]` | Max 63 chars + `\0` | No | Specific syllabus topic addressed | `Linked Lists` |
+| `cognitive_level` | `int` | $1 \le \text{level} \le 6$ | No | Assigned Bloom's cognitive level (L1 to L6) | `1` (Remember) |
+| `marks` | `int` | $1 \le \text{marks} \le 70$ | No | Marks allocated to this question | `7` |
+
+#### 7.1.3 Category Aggregation Entity (`CategoryStat`)
+Maintains dynamic frequency counters and differential metrics for vertical and horizontal scrutiny dimensions:
+| Field Name | C Data Type | Description |
+| :--- | :--- | :--- |
+| `id` | `int` | Category identifier (Unit 1..5, CO 1..5, or Cognitive Level 1..6) |
+| `name` | `char[64]` | Human-readable label (e.g., `"Unit 1"`, `"CO 2"`, `"L3: Apply"`) |
+| `expected_questions` | `int` | Sum of questions demanded by reference blueprint |
+| `actual_questions` | `int` | Sum of questions present in actual question paper |
+| `expected_marks` | `int` | Prescribed marks according to reference blueprint |
+| `actual_marks` | `int` | Total marks allocated in submitted question paper |
+| `question_diff` | `int` | Variance in question count ($\text{actual} - \text{expected}$) |
+| `marks_diff` | `int` | Variance in mark allocation ($\text{actual} - \text{expected}$) |
+
+---
+
+### 7.2 C Data Structure Implementations and Memory Layout
+The system enforces compile-time static array sizing to guarantee zero heap fragmentation, deterministic memory usage, and high execution speed in resource-constrained environments:
+
+```c
+// models.h - Core Data Structures and Memory Layout
+#define MAX_RULES      50
+#define MAX_QUESTIONS  100
+#define MAX_STR        64
+#define MAX_TEXT       256
+#define MAX_UNITS      10
+#define MAX_COS        5
+
+// Bloom's Revised Taxonomy Cognitive Levels
+typedef enum {
+    COG_NONE = 0,
+    COG_L1 = 1, // Remember
+    COG_L2 = 2, // Understand
+    COG_L3 = 3, // Apply
+    COG_L4 = 4, // Analyze
+    COG_L5 = 5, // Evaluate
+    COG_L6 = 6  // Create
+} CognitiveLevel;
+
+// Institutional Blueprint Item
+typedef struct {
+    int rule_id;
+    int unit;
+    int co_number;
+    char topic[MAX_STR];
+    int cognitive_level;
+    int expected_questions;
+    int expected_marks;
+} BlueprintItem;
+
+// Question Record Item
+typedef struct {
+    char q_no[16];
+    char content[MAX_TEXT];
+    int unit;
+    int co_number;
+    char topic[MAX_STR];
+    int cognitive_level;
+    int marks;
+} Question;
+
+// Complete Question Paper Record
+typedef struct {
+    char institution[MAX_STR];
+    char department[MAX_STR];
+    char subject_name[MAX_STR];
+    char exam_name[MAX_STR];
+    int total_marks;
+    int question_count;
+    Question questions[MAX_QUESTIONS];
+} QuestionPaper;
+```
+
+#### Memory Sizing Analysis
+- A `Question` structure occupies approximately $368$ bytes ($16 + 256 + 4 + 4 + 64 + 4 + 4$ plus struct alignment padding).
+- A full `QuestionPaper` object supporting up to 100 questions requires approximately $37.2\text{ KB}$ of memory, allowing the entire verification suite to execute comfortably within small stack footprints and low-power embedded processors without dynamic allocations (`malloc`/`free`).
+
+---
+
+### 7.3 File Storage Architectures & Delimited Schemas
+The system persists configurations and validation results across four distinct file formats:
+
+#### 7.3.1 Reference Blueprint Storage (`blueprint.txt`)
+`blueprint.txt` uses a composite format consisting of an institutional metadata header block followed by comma-separated rule records:
+```text
+RGMCET (Autonomous)
+Department of Computer Science & Engineering (AI&ML)
+Data Structures
+Semester End Examination - Nov 2026
+70
+10
+1,1,1,Linear Data Structures,1,1,7
+2,1,1,Linked Lists,3,1,7
+3,2,2,Stack Applications,2,1,7
+4,2,2,Queue Structures,4,1,7
+...
+```
+- **Lines 1–6 (Header Block)**: Institution Name, Department, Subject Name, Exam Name, Total Marks ($70$), and Rule Count ($10$).
+- **Subsequent Lines (Rule Records)**: `rule_id,unit,co_number,topic,cognitive_level,expected_questions,expected_marks`.
+
+#### 7.3.2 Question Paper Storage (`question_paper.txt`)
+Because question statements frequently contain commas, quotes, and punctuation, standard CSV delimiters risk parsing corruption. Consequently, question records employ the hash delimiter (`#`) for unambiguous record splitting:
+```text
+RGMCET (Autonomous)
+Department of Computer Science & Engineering (AI&ML)
+Data Structures
+Semester End Examination - Nov 2026
+70
+10
+Q1(a)#Define Doubly Linked List with a neat diagram.#1#1#Linked Lists#1#7
+Q1(b)#Implement insertion and deletion operations in Doubly Linked List.#1#1#Linked Lists#3#7
+Q2(a)#Explain stack overflow and underflow conditions with examples.#2#2#Stacks#2#7
+...
+```
+- **Record Syntax**: `q_no#content#unit#co_number#topic#cognitive_level#marks`.
+
+#### 7.3.3 Official Text Audit Certificate (`audit_report.txt`)
+Contains ASCII-formatted bordered inspection summaries suitable for direct printing, department bulletin boards, and official record archives:
+- Institutional Identification and Examination metadata.
+- Total Marks Verification check.
+- Unit-wise mark and question distribution matrices.
+- Course Outcome (CO1–CO5) OBE compliance summaries.
+- Bloom's Taxonomy cognitive level percentage distributions.
+- Overall Compliance Percentage, Difficulty Index, and Final Academic Verdict.
+
+#### 7.3.4 Excel Spreadsheet Export (`audit_report.csv`)
+An RFC 4180-compliant comma-separated spreadsheet enabling direct import into Microsoft Excel, Google Sheets, or institutional ERP systems. It structures compliance data into tabular categories with differential columns for automated chart generation.
+
+---
+
+### 7.4 File I/O Lifecycle, Stream Safety, and Error Handling
+The file input/output subsystem is designed defensively to handle edge conditions, corrupt data, and platform variances:
+1. **Explicit Stream Validation**: Every file access invokes explicit validation (`if (!fp)`). If a file is missing or inaccessible, the function logs an error message with ANSI highlighting and returns an error code ($0$) rather than crashing.
+2. **Buffer Overflow Prevention**: File reading relies exclusively on `fgets(buffer, sizeof(buffer), fp)` rather than unbounded input functions (`gets()` or raw `scanf()`).
+3. **Cross-Platform Line Ending Sanitization**: The system strips both carriage return (`\r`) and newline (`\n`) characters using `strcspn(buffer, "\r\n") = '\0'`, guaranteeing seamless interoperability across Windows, macOS, and Linux operating systems.
+4. **Data Tokenization Safety**: String fields are parsed using safe token extraction routines (`strtok` or controlled `sscanf`), verifying that all mandatory tokens are present before populating internal records.
 
 ---
 
@@ -455,4 +604,5 @@ The Examination Question Paper Blueprint Validation System provides an automated
 [4] Rajeev Gandhi Memorial College of Engineering and Technology (Autonomous). *Academic Regulations and Examination Guidelines for B.Tech Programs (AY 2026-27)*.  
 [5] ISO/IEC 9899:1999. *Programming Languages — C (C99 Standard)*.  
 [6] Jaccard, P. (1912). *The Distribution of the Flora in the Alpine Zone*. New Phytologist, 11(2), 37-50.  
-[7] Project source code and module implementation files prepared for the Blueprint Checker System, Dept. of CSE (AI&ML), RGMCET.
+[7] Manning, C. D., Raghavan, P., & Schütze, H. (2008). *Introduction to Information Retrieval*. Cambridge University Press.  
+[8] Pressman, R. S., & Maxim, B. R. (2020). *Software Engineering: A Practitioner's Approach* (9th ed.). McGraw-Hill Education.
