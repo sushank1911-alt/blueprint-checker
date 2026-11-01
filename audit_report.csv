@@ -1,0 +1,46 @@
+Examination Blueprint Validation Audit Report
+Institution,RGM College of Engineering and Technology (Autonomous), Nandyal
+Department,Department of CSE (AI & ML)
+Subject,Data Structures and Algorithms
+Examination,II B.Tech I Sem End Examinations (AY 2026-27)
+Compliance Score,100.00 %
+Difficulty Index,3.26 / 6.00 (WELL-BALANCED (Recommended for Autonomous Exams))
+Audit Verdict,100% COMPLIANT - APPROVED FOR EXAMINATION
+
+Unit-wise Distribution Analysis
+Unit,Expected Questions,Actual Questions,Expected Marks,Actual Marks,Difference
+Unit 1,2,2,14,14,0
+Unit 2,2,2,14,14,0
+Unit 3,2,2,14,14,0
+Unit 4,2,2,14,14,0
+Unit 5,2,2,14,14,0
+
+Course Outcome (CO) Distribution Analysis
+Outcome,Expected Questions,Actual Questions,Expected Marks,Actual Marks,Difference
+CO 1,2,2,14,14,0
+CO 2,2,2,14,14,0
+CO 3,2,2,14,14,0
+CO 4,2,2,14,14,0
+CO 5,2,2,14,14,0
+
+Bloom's Cognitive Level Analysis
+Cognitive Level,Expected Questions,Actual Questions,Expected Marks,Actual Marks,Difference
+L1 (Remember),1,1,4,4,0
+L2 (Understand),3,3,12,12,0
+L3 (Apply),3,3,26,26,0
+L4 (Analyze),2,2,18,18,0
+L5 (Evaluate),1,1,10,10,0
+L6 (Create),0,0,0,0,0
+
+Question Inventory
+Question No,Unit,Course Outcome,Question Statement,Cognitive Level,Marks
+"Q1(a)",Unit 1,CO 1,"Define asymptotic notations and state their significance in algorithm analysis.","L1 (Remember)",4
+"Q1(b)",Unit 1,CO 1,"Implement insertion and deletion operations in a Doubly Linked List with code.","L3 (Apply)",10
+"Q2(a)",Unit 2,CO 2,"Explain the postfix expression evaluation using stack with an example.","L2 (Understand)",4
+"Q2(b)",Unit 2,CO 2,"Solve the circular queue implementation and demonstrate handling of boundary conditions.","L3 (Apply)",10
+"Q3(a)",Unit 3,CO 3,"Describe in-order, pre-order, and post-order traversals of a binary tree.","L2 (Understand)",4
+"Q3(b)",Unit 3,CO 3,"Analyze LL, RR, LR, and RL rotations required to balance an AVL tree after insertions.","L4 (Analyze)",10
+"Q4(a)",Unit 4,CO 4,"Demonstrate Breadth First Search (BFS) graph traversal algorithm with a trace.","L3 (Apply)",6
+"Q4(b)",Unit 4,CO 4,"Analyze Dijkstra's single source shortest path algorithm on a weighted directed graph.","L4 (Analyze)",8
+"Q5(a)",Unit 5,CO 5,"Discuss open addressing techniques for hash table collision resolution.","L2 (Understand)",4
+"Q5(b)",Unit 5,CO 5,"Evaluate the best, average, and worst-case time complexities of Quick Sort vs Merge Sort.","L5 (Evaluate)",10

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Examination Question Paper Blueprint Checker & Validation System</title>
+<style>
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    margin: 1in;
+  }
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 18pt;
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: 14pt;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 4px;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 13pt;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  p {
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 11pt;
+  }
+  table, th, td {
+    border: 1px solid #444;
+  }
+  th {
+    background-color: #f2f2f2;
+    padding: 8px;
+    font-weight: bold;
+    text-align: left;
+  }
+  td {
+    padding: 6px 8px;
+  }
+  pre, code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f8f8f8;
+    padding: 2px 4px;
+    font-size: 10.5pt;
+  }
+  pre {
+    padding: 10px;
+    border: 1px solid #ddd;
+    white-space: pre-wrap;
+    background-color: #fdfdfd;
+  }
+  .signature-table td {
+    border: none;
+    padding: 40px 10px 10px 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TITLE PAGE -->
+<div class="text-center">
+  <p style="font-size: 14pt; font-weight: bold; margin-bottom: 2px;">RAJEEV GANDHI MEMORIAL COLLEGE OF ENGINEERING & TECHNOLOGY</p>
+  <p style="font-size: 12pt; font-weight: bold; margin-bottom: 2px;">(AUTONOMOUS)</p>
+  <p style="font-size: 11pt; margin-bottom: 2px;">Nandyal - 518501, Andhra Pradesh, India</p>
+  <p style="font-size: 10pt; margin-bottom: 2px;">Approved by AICTE, New Delhi | Affiliated to J.N.T.U.A. Ananthapuramu</p>
+  <p style="font-size: 10pt; margin-bottom: 2px;">Accredited by NBA & NAAC (With ‘A+’ Grade), New Delhi</p>
+  <p style="font-size: 10pt; margin-bottom: 15px;">Participated in World Bank Assisted TEQIP Phase – I | www.rgmcet.edu.in</p>
+
+  <p style="margin: 25px 0; font-size: 12pt; font-weight: bold;">(ESTD-1995)</p>
+
+  <p style="font-size: 13pt; font-weight: bold; margin-bottom: 4px;">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING</p>
+  <p style="font-size: 13pt; font-weight: bold; margin-bottom: 25px;">(ARTIFICIAL INTELLIGENCE & MACHINE LEARNING)</p>
+
+  <p style="font-size: 12pt; margin-bottom: 8px;">A Course Project Report On</p>
+  <h1 style="font-size: 17pt; margin-bottom: 25px; color: #111;">EXAMINATION QUESTION PAPER BLUEPRINT CHECKER & VALIDATION SYSTEM</h1>
+
+  <p style="font-size: 11pt; margin-bottom: 4px;">Submitted in partial fulfillment of the academic requirements for the award of</p>
+  <p style="font-size: 12pt; font-weight: bold; margin-bottom: 30px;">BACHELOR OF TECHNOLOGY<br>IN<br>COMPUTER SCIENCE & ENGINEERING (AI & ML)</p>
+
+  <table style="width: 100%; border: none; margin-top: 30px;">
+    <tr style="border: none;">
+      <td style="width: 50%; border: none; text-align: left; vertical-align: top;">
+        <p style="font-weight: bold; margin-bottom: 4px;">Under the Guidance of:</p>
+        <p style="margin-bottom: 2px;">Faculty Project Guide</p>
+        <p style="font-size: 10pt; margin-bottom: 2px;">Assistant Professor</p>
+        <p style="font-size: 10pt;">Dept. of CSE (AI & ML), RGMCET</p>
+      </td>
+      <td style="width: 50%; border: none; text-align: right; vertical-align: top;">
+        <p style="font-weight: bold; margin-bottom: 4px;">Submitted By:</p>
+        <p style="margin-bottom: 2px;">Student 1 &nbsp;&nbsp;&nbsp;&nbsp; (Regd. No: 25091A33xx)</p>
+        <p style="margin-bottom: 2px;">Student 2 &nbsp;&nbsp;&nbsp;&nbsp; (Regd. No: 25091A33xx)</p>
+        <p style="margin-bottom: 2px;">Student 3 &nbsp;&nbsp;&nbsp;&nbsp; (Regd. No: 25091A33xx)</p>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin-top: 40px; font-weight: bold;">Academic Year: 2026 – 2027<br>Duration: 25/08/2026 to 31/10/2026</p>
+</div>
+
+<!-- PAGE BREAK: CERTIFICATE -->
+<div class="page-break"></div>
+
+<div class="text-center">
+  <p style="font-size: 13pt; font-weight: bold; margin-bottom: 2px;">RAJEEV GANDHI MEMORIAL COLLEGE OF ENGINEERING & TECHNOLOGY</p>
+  <p style="font-size: 11pt; font-weight: bold; margin-bottom: 2px;">(AUTONOMOUS)</p>
+  <p style="font-size: 10pt; margin-bottom: 15px;">Nandyal - 518501, Nandyal Dist., Andhra Pradesh</p>
+  <p style="font-size: 12pt; font-weight: bold; margin-bottom: 25px;">DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING (AI & ML)</p>
+  <h1 style="font-size: 16pt; margin-bottom: 30px; letter-spacing: 2px;">CERTIFICATE</h1>
+</div>
+
+<p style="line-height: 1.8; font-size: 12pt;">
+This is to certify that the project entitled <b>"EXAMINATION QUESTION PAPER BLUEPRINT CHECKER & VALIDATION SYSTEM"</b> that is being submitted by <b>[Student 1 (25091A33xx), Student 2 (25091A33xx), and Student 3 (25091A33xx)]</b> has been carried out by them in partial fulfillment of the requirements for the degree of <b>Bachelor of Technology in Computer Science & Engineering (Artificial Intelligence & Machine Learning)</b> at <b>Rajeev Gandhi Memorial College of Engineering & Technology (Autonomous), Nandyal</b>, affiliated to J.N.T.U.A. Ananthapuramu, during the Academic Year <b>2026 – 2027</b>.
+</p>
+<p style="line-height: 1.8; font-size: 12pt;">
+This is a bonafide record of the work carried out under our supervision and guidance.
+</p>
+
+<table class="signature-table" style="width: 100%; border: none; margin-top: 60px;">
+  <tr style="border: none;">
+    <td style="width: 50%; border: none; text-align: left;">
+      <p style="font-weight: bold; margin-bottom: 2px;">Project Guide</p>
+      <p style="margin-bottom: 2px;">Faculty Project Guide</p>
+      <p style="font-size: 10pt; margin-bottom: 2px;">Assistant Professor</p>
+      <p style="font-size: 10pt;">Dept. of CSE (AI & ML), RGMCET</p>
+    </td>
+    <td style="width: 50%; border: none; text-align: right;">
+      <p style="font-weight: bold; margin-bottom: 2px;">Head of the Department</p>
+      <p style="margin-bottom: 2px; font-weight: bold;">Dr. G. Kishore Kumar</p>
+      <p style="font-size: 10pt; margin-bottom: 2px;">Professor & HOD</p>
+      <p style="font-size: 10pt;">Dept. of CSE (AI & ML), RGMCET</p>
+    </td>
+  </tr>
+</table>
+
+<table style="width: 100%; border: none; margin-top: 60px;">
+  <tr style="border: none;">
+    <td style="width: 50%; border: none; text-align: left;">
+      <p><b>Signature of External Examiner:</b> ____________________</p>
+    </td>
+    <td style="width: 50%; border: none; text-align: right;">
+      <p><b>Date:</b> ____________________</p>
+    </td>
+  </tr>
+</table>
+
+<!-- PAGE BREAK: ABSTRACT -->
+<div class="page-break"></div>
+
+<h1 style="text-align: center; margin-bottom: 20px;">ABSTRACT</h1>
+
+<p>
+The <b>Examination Question Paper Blueprint Checker and Validation System</b> is a specialized academic software tool engineered to automate, standardize, and verify the structural and cognitive composition of semester examination question papers. In autonomous institutions such as Rajeev Gandhi Memorial College of Engineering & Technology, question papers must strictly adhere to predefined institutional blueprints mandated by Outcome-Based Education (OBE) and the National Board of Accreditation (NBA). These blueprints define required distributions across course units (Unit 1 to Unit 5), Course Outcomes (CO1 to CO5), and Bloom's Revised Taxonomy levels (L1 Remember to L6 Create).
+</p>
+<p>
+Traditionally, verification of blueprint compliance is performed manually by department scrutiny boards. Manual scrutiny requires considerable effort, is prone to arithmetic slips, lacks objective Bloom's assessment, and provides no systemic check against duplicate or highly similar questions. To eliminate these weaknesses, the proposed system provides an automated validation engine implemented in the <b>C programming language</b>.
+</p>
+<p>
+The system is partitioned into five distinct modules:
+</p>
+<ol>
+  <li><b>Module 1 (Blueprint Management):</b> Captures, validates, and stores reference institutional standards including units, Course Outcomes, topics, expected questions, and marks.</li>
+  <li><b>Module 2 (Question Paper Management):</b> Maintains the actual question inventory with question statements, marks, units, CO mapping, and cognitive tags.</li>
+  <li><b>Module 3 (Data Organization & Analysis):</b> Aggregates multidimensional frequency matrices across units, Course Outcomes, and cognitive levels, and computes a Weighted Paper Difficulty Index.</li>
+  <li><b>Module 4 (Blueprint Checking & Comparison Engine):</b> Evaluates category-wise discrepancy equations, identifies over/under allocations, and derives a normalized Academic Compliance Percentage Score.</li>
+  <li><b>Module 5 (Report Generation & File Management):</b> Displays real-time ANSI color-coded evaluations on the console and exports official printable verification audit reports (<code>audit_report.txt</code>) and Microsoft Excel spreadsheets (<code>audit_report.csv</code>).</li>
+</ol>
+<p>
+Furthermore, as an enhancement tailored for the <b>CSE (AI & ML)</b> curriculum, the application integrates an <b>AI-based Action Verb Natural Language Classifier</b> that automatically cross-checks question statements against Bloom’s Taxonomy levels, alongside a <b>Jaccard Word Similarity Redundancy Detector</b> to prevent duplicate examination questions. The resulting application ensures high academic rigor, supports fair and balanced student evaluations, and creates seamless digital audit trails for institutional accreditation.
+</p>
+
+<!-- PAGE BREAK: TABLE OF CONTENTS -->
+<div class="page-break"></div>
+
+<h1 style="text-align: center; margin-bottom: 20px;">TABLE OF CONTENTS</h1>
+
+<table style="width: 100%; border: none;">
+  <tr style="border: none; font-weight: bold;"><td style="border: none;">Chapter No.</td><td style="border: none;">Title</td><td style="border: none; text-align: right;">Page</td></tr>
+  <tr style="border: none;"><td style="border: none;">1</td><td style="border: none;">Introduction</td><td style="border: none; text-align: right;">1</td></tr>
+  <tr style="border: none;"><td style="border: none;">2</td><td style="border: none;">Problem Statement, Objectives, and Scope</td><td style="border: none; text-align: right;">2</td></tr>
+  <tr style="border: none;"><td style="border: none;">3</td><td style="border: none;">Existing and Proposed Systems</td><td style="border: none; text-align: right;">3</td></tr>
+  <tr style="border: none;"><td style="border: none;">4</td><td style="border: none;">Requirements and Feasibility Study</td><td style="border: none; text-align: right;">4</td></tr>
+  <tr style="border: none;"><td style="border: none;">5</td><td style="border: none;">System Architecture and Design</td><td style="border: none; text-align: right;">5</td></tr>
+  <tr style="border: none;"><td style="border: none;">6</td><td style="border: none;">Five Modules: Design, Algorithms, and Pseudocode</td><td style="border: none; text-align: right;">6</td></tr>
+  <tr style="border: none;"><td style="border: none;">7</td><td style="border: none;">Data Design and File Handling</td><td style="border: none; text-align: right;">9</td></tr>
+  <tr style="border: none;"><td style="border: none;">8</td><td style="border: none;">User Interface and Console Design</td><td style="border: none; text-align: right;">10</td></tr>
+  <tr style="border: none;"><td style="border: none;">9</td><td style="border: none;">Core Implementation & AI Modules</td><td style="border: none; text-align: right;">11</td></tr>
+  <tr style="border: none;"><td style="border: none;">10</td><td style="border: none;">Integration and Data Flow</td><td style="border: none; text-align: right;">12</td></tr>
+  <tr style="border: none;"><td style="border: none;">11</td><td style="border: none;">Testing and Sample Results</td><td style="border: none; text-align: right;">13</td></tr>
+  <tr style="border: none;"><td style="border: none;">12</td><td style="border: none;">Security, Reliability, Limitations, and Future Enhancements</td><td style="border: none; text-align: right;">15</td></tr>
+  <tr style="border: none;"><td style="border: none;">13</td><td style="border: none;">Conclusion</td><td style="border: none; text-align: right;">16</td></tr>
+  <tr style="border: none;"><td style="border: none;">14</td><td style="border: none;">References</td><td style="border: none; text-align: right;">17</td></tr>
+</table>
+
+<!-- PAGE BREAK: CHAPTER 1 -->
+<div class="page-break"></div>
+
+<h2>1. INTRODUCTION</h2>
+<h3>1.1 Project Overview</h3>
+<p>
+The Examination Question Paper Blueprint Checker is an academic auditing application developed in C to verify that semester examination question papers strictly conform to institutional assessment guidelines, Course Outcomes (COs), and Bloom's Revised Taxonomy levels.
+</p>
+<h3>1.2 Purpose</h3>
+<p>
+The purpose of the system is to provide an automated, mathematical scrutiny tool for academic scrutiny boards, course coordinators, and examination cell officers. It replaces manual scrutiny forms with an automated audit pipeline.
+</p>
+<h3>1.3 Objectives</h3>
+<ul>
+  <li>Maintain an institutional blueprint specification across units, topics, Course Outcomes (CO1 to CO5), and cognitive levels (L1 to L6).</li>
+  <li>Inventory question papers and validate individual marks, unit distributions, and question counts.</li>
+  <li>Compute mathematical discrepancy equations across every unit and learning outcome.</li>
+  <li>Calculate an Academic Compliance Percentage Score and a Weighted Difficulty Index.</li>
+  <li>Incorporate NLP action-verb validation and Jaccard token similarity checks to eliminate duplicate questions.</li>
+  <li>Generate official, printable audit certificates (<code>audit_report.txt</code>) and spreadsheet files (<code>audit_report.csv</code>).</li>
+</ul>
+<h3>1.4 Scope</h3>
+<p>
+The scope covers autonomous B.Tech question paper structures (standard 70-mark theory papers distributed across 5 units and 5 Course Outcomes).
+</p>
+<h3>1.5 Intended Users</h3>
+<p>
+Department Scrutiny Committee members, Heads of Departments (HOD), Course Coordinators, and Institutional Examination Cell Auditors.
+</p>
+
+<h2>2. PROBLEM STATEMENT, OBJECTIVES, AND SCOPE</h2>
+<h3>2.1 Problem Statement</h3>
+<p>
+Preparing balanced examination question papers requires adherence to institutional assessment guidelines that define the distribution of questions across various difficulty levels and learning outcomes. Manual verification of blueprint compliance may result in inconsistencies, calculation errors, delayed review cycles, and non-compliance with NBA Outcome-Based Education requirements. A structured examination blueprint validation system is required to analyze question paper composition, verify compliance with predefined assessment standards, evaluate mark distribution, and generate validation reports that support fair and standardized examinations.
+</p>
+<h3>2.2 Proposed Solution</h3>
+<p>
+An automated software application developed in ANSI C that accepts blueprint constraints, aggregates question parameters into multi-dimensional matrices, flags deviations, calculates compliance scores, and saves persistent verification records.
+</p>
+
+<h2>3. EXISTING AND PROPOSED SYSTEMS</h2>
+<h3>3.1 Existing Manual System</h3>
+<p>
+Faculty members prepare questions and submit hard copies. A scrutiny committee manually counts questions and marks per unit using pencil and paper, cross-verifies syllabus coverage, and manually writes remarks on physical scrutiny proformas.
+</p>
+<h3>3.2 Disadvantages of the Existing System</h3>
+<ul>
+  <li>Prone to arithmetic errors during mark summations.</li>
+  <li>Subjective tagging of Bloom’s cognitive levels without semantic verification.</li>
+  <li>No mechanism to detect question repetition from past tests or within the same paper.</li>
+  <li>Physical paperwork is easily misplaced, complicating NBA audit compliance.</li>
+</ul>
+<h3>3.3 Proposed Automated System</h3>
+<p>
+A structured, menu-driven C program that implements 5 distinct modules, executes deterministic algorithmic checks, evaluates Course Outcome coverage, computes difficulty ratings, and generates timestamped audit certificates.
+</p>
+
+<h2>4. REQUIREMENTS AND FEASIBILITY STUDY</h2>
+<h3>4.1 Functional Requirements</h3>
+<ul>
+  <li><b>FR1:</b> Blueprint rule entry, modification, listing, and file persistence.</li>
+  <li><b>FR2:</b> Question inventory entry with question statement, unit, CO, topic, Bloom level, and marks.</li>
+  <li><b>FR3:</b> Categorization and aggregation of marks per Unit (1–5), CO (1–5), and Bloom's level (L1–L6).</li>
+  <li><b>FR4:</b> Automated difference calculation (&Delta; = Actual - Expected) and Compliance Percentage generation.</li>
+  <li><b>FR5:</b> Calculation of Weighted Difficulty Index.</li>
+  <li><b>FR6:</b> AI Action Verb checking and Jaccard Question Similarity scanning.</li>
+  <li><b>FR7:</b> File persistence and export to text and CSV.</li>
+</ul>
+<h3>4.2 Non-Functional Requirements</h3>
+<p>
+Standard C99 portability across all operating systems, execution latency under 100 milliseconds, memory safety, and intuitive ANSI color highlights.
+</p>
+
+<!-- PAGE BREAK: CHAPTER 5 & 6 -->
+<div class="page-break"></div>
+
+<h2>5. SYSTEM ARCHITECTURE AND DESIGN</h2>
+<p>
+The application follows a modular architecture separating data representation (<code>models.h</code>), business logic (<code>checker.c</code>, <code>analysis.c</code>), AI processing (<code>ai_helper.c</code>), input/output (<code>blueprint.c</code>, <code>question_paper.c</code>), and reporting (<code>report.c</code>).
+</p>
+
+<h2>6. FIVE MODULES: DESIGN, ALGORITHMS, AND PSEUDOCODE</h2>
+
+<h3>Module 1: Blueprint Management</h3>
+<p>
+Responsible for defining and storing the reference examination blueprint standards.
+</p>
+<pre>
+ALGORITHM Module1_AddRule:
+1. Input Unit, CO Number, Topic Name, Cognitive Level (1 to 6), Expected Questions, and Marks.
+2. If rule_count < MAX_RULES:
+     Store parameters into rules[rule_count].
+     Increment rule_count.
+     Recalculate total_expected_marks = SUM(rules[i].expected_marks).
+3. Display confirmation.
+</pre>
+
+<h3>Module 2: Question Paper Management</h3>
+<p>
+Captures, inventories, and modifies the questions of the submitted examination paper.
+</p>
+<pre>
+ALGORITHM Module2_AddQuestion:
+1. Input Question No, Statement, Unit, CO, Topic, Cognitive Level, and Marks.
+2. Call ai_verify_question_alignment(statement, cognitive_level).
+3. Append record into questions[question_count].
+4. Recalculate total_marks = SUM(questions[i].marks).
+</pre>
+
+<h3>Module 3: Data Organization and Analysis</h3>
+<p>
+Organizes and aggregates raw questions into frequency distributions across units, COs, and Bloom levels.
+</p>
+<pre>
+ALGORITHM Module3_OrganizeData:
+1. Clear unit_stats[1..5], co_stats[1..5], cog_stats[1..6].
+2. For each rule in blueprint:
+     expected_marks[rule.unit] += rule.expected_marks.
+     expected_marks[rule.co] += rule.expected_marks.
+     expected_marks[rule.cog] += rule.expected_marks.
+3. For each question in question paper:
+     actual_marks[question.unit] += question.marks.
+     actual_marks[question.co] += question.marks.
+     actual_marks[question.cog] += question.marks.
+     weighted_sum += question.cognitive_level * question.marks.
+4. Calculate Difficulty Index = weighted_sum / total_marks.
+5. Compute differences: marks_diff = actual_marks - expected_marks.
+</pre>
+
+<h3>Module 4: Blueprint Checking and Comparison Engine</h3>
+<p>
+The core audit engine that identifies discrepancies and computes the normalized Compliance Percentage Score.
+</p>
+<pre>
+ALGORITHM Module4_CheckCompliance:
+1. Compute total_error = SUM(|unit_marks_diff|) + SUM(|co_marks_diff|) + SUM(|cog_marks_diff|).
+2. Max_Penalty = 2 * total_expected_marks.
+3. Compliance_Score = MAX(0.0, 100.0 - ((total_error / Max_Penalty) * 100.0)).
+4. If Compliance_Score == 100.0 THEN Verdict = "100% COMPLIANT - APPROVED FOR EXAMINATION".
+   Else If Compliance_Score >= 80.0 THEN Verdict = "PARTIALLY COMPLIANT - MINOR CORRECTIONS REQUIRED".
+   Else Verdict = "NON-COMPLIANT - REJECTED (REVISION REQUIRED)".
+</pre>
+
+<h3>Module 5: Report Generation and File Management</h3>
+<p>
+Formats tables and writes structured audit certificates to <code>audit_report.txt</code> and <code>audit_report.csv</code>.
+</p>
+
+<!-- PAGE BREAK: CHAPTER 7, 8 & 9 -->
+<div class="page-break"></div>
+
+<h2>7. DATA DESIGN AND FILE HANDLING</h2>
+<p>
+All records are defined in <code>models.h</code> using fixed-size C structures. File persistence utilizes standard C stream I/O (<code>fopen</code>, <code>fprintf</code>, <code>fscanf</code>, <code>fgets</code>, <code>fclose</code>).
+</p>
+
+<h2>8. USER INTERFACE AND CONSOLE DESIGN</h2>
+<p>
+The interface uses a numbered menu loop with ANSI escape sequences (<code>\033[1;32m</code> Green, <code>\033[1;33m</code> Yellow, <code>\033[1;31m</code> Red, <code>\033[1;36m</code> Cyan) to provide high visual clarity during presentations.
+</p>
+
+<h2>9. CORE IMPLEMENTATION & AI MODULES</h2>
+<h3>9.1 Bloom's Action Verb Natural Language Classifier</h3>
+<p>
+The classifier scans question statements for key action verbs:
+</p>
+<ul>
+  <li><b>L1 (Remember):</b> <i>define, state, list, name, recall, identify, what is, mention</i></li>
+  <li><b>L2 (Understand):</b> <i>explain, describe, discuss, outline, summarize, clarify, illustrate</i></li>
+  <li><b>L3 (Apply):</b> <i>calculate, compute, solve, implement, demonstrate, execute, apply</i></li>
+  <li><b>L4 (Analyze):</b> <i>analyze, differentiate, distinguish, compare, contrast, examine</i></li>
+  <li><b>L5 (Evaluate):</b> <i>evaluate, justify, critique, verify, assess, defend, rate</i></li>
+  <li><b>L6 (Create):</b> <i>design, formulate, construct, develop, compose, invent, propose</i></li>
+</ul>
+
+<h3>9.2 Jaccard Question Similarity Detector</h3>
+<p>
+Detects potential duplicate questions across the paper using token-based Jaccard similarity:
+</p>
+<p style="text-align: center; font-weight: bold;">
+J(Q<sub>A</sub>, Q<sub>B</sub>) = |Q<sub>A</sub> &cap; Q<sub>B</sub>| / |Q<sub>A</sub> &cup; Q<sub>B</sub>|
+</p>
+<p>
+If similarity &ge; 35%, the system issues a redundancy alert.
+</p>
+
+<h3>9.3 Weighted Paper Difficulty Index</h3>
+<p style="text-align: center; font-weight: bold;">
+Difficulty Index = &sum; (Cognitive Level<sub>i</sub> &times; Marks<sub>i</sub>) / Total Marks
+</p>
+<ul>
+  <li><b>&lt; 2.20:</b> Easy (Heavy Lower-Order Thinking)</li>
+  <li><b>2.20 – 3.80:</b> Well-Balanced (Ideal for Autonomous Examinations)</li>
+  <li><b>&gt; 3.80:</b> Highly Challenging (Excessive Higher-Order Thinking)</li>
+</ul>
+
+<!-- PAGE BREAK: CHAPTER 10 & 11 -->
+<div class="page-break"></div>
+
+<h2>10. INTEGRATION AND DATA FLOW</h2>
+<p>
+The menu-driven system coordinates all modules: data entered into Module 1 and 2 flows into Module 3 for aggregation, passes through Module 4 for discrepancy audits, and is emitted by Module 5 as terminal output and persistent disk files.
+</p>
+
+<h2>11. TESTING AND SAMPLE RESULTS</h2>
+<h3>11.1 Test Case Matrix</h3>
+<table>
+  <tr><th>Test ID</th><th>Test Scenario</th><th>Expected Result</th><th>Status</th></tr>
+  <tr><td>TC01</td><td>Add Blueprint Rule (Unit 1, CO1, 14 marks)</td><td>Rule saved and expected marks updated</td><td>PASS</td></tr>
+  <tr><td>TC02</td><td>Add Question with matching Bloom verb</td><td>AI confirms alignment</td><td>PASS</td></tr>
+  <tr><td>TC03</td><td>Add question starting with "Define" tagged as L4</td><td>AI issues warning flag</td><td>PASS</td></tr>
+  <tr><td>TC04</td><td>Paper with total 70 marks entered</td><td>Total marks check passes</td><td>PASS</td></tr>
+  <tr><td>TC05</td><td>Paper missing Unit 5 / CO5</td><td>Discrepancy engine flags under-allocation</td><td>PASS</td></tr>
+  <tr><td>TC06</td><td>Test Scenario 1 (Compliant paper)</td><td>Compliance Score = 100.00%, Status = APPROVED</td><td>PASS</td></tr>
+  <tr><td>TC07</td><td>Test Scenario 2 (Flawed paper)</td><td>Compliance Score &lt; 80.00%, Status = REJECTED</td><td>PASS</td></tr>
+  <tr><td>TC08</td><td>Pair of duplicate questions entered</td><td>Jaccard detector flags redundancy alert</td><td>PASS</td></tr>
+  <tr><td>TC09</td><td>Export Text Audit Report</td><td><code>audit_report.txt</code> generated on disk</td><td>PASS</td></tr>
+  <tr><td>TC10</td><td>Export CSV Spreadsheet</td><td><code>audit_report.csv</code> generated on disk</td><td>PASS</td></tr>
+</table>
+
+<h3>11.2 Sample Compliant Execution Output</h3>
+<pre>
+========================================================================================
+                  MODULE 4: BLUEPRINT COMPLIANCE AUDIT & COMPARISON
+========================================================================================
+[1] Total Marks Verification:
+    Prescribed Blueprint Marks : 70
+    Actual Question Paper Marks: 70
+    --> SUCCESS: Total marks match prescribed 70 marks exactly.
+
+[2] Unit-wise Distribution Audit:
+    * Unit 1 COMPLIANT: 14 marks, 2 questions (Exact Match).
+    * Unit 2 COMPLIANT: 14 marks, 2 questions (Exact Match).
+    * Unit 3 COMPLIANT: 14 marks, 2 questions (Exact Match).
+    * Unit 4 COMPLIANT: 14 marks, 2 questions (Exact Match).
+    * Unit 5 COMPLIANT: 14 marks, 2 questions (Exact Match).
+
+[3] Course Outcome (OBE CO1 - CO5) Audit:
+    * CO 1 COMPLIANT: 14 marks allocated (OBE Target Met).
+    * CO 2 COMPLIANT: 14 marks allocated (OBE Target Met).
+    * CO 3 COMPLIANT: 14 marks allocated (OBE Target Met).
+    * CO 4 COMPLIANT: 14 marks allocated (OBE Target Met).
+    * CO 5 COMPLIANT: 14 marks allocated (OBE Target Met).
+
+ Overall Compliance Score : 100.00 %
+ Difficulty Index         : 3.26 / 6.00 (WELL-BALANCED)
+ Final Academic Verdict   : 100% COMPLIANT - APPROVED FOR EXAMINATION
+========================================================================================
+</pre>
+
+<!-- PAGE BREAK: CHAPTER 12, 13 & 14 -->
+<div class="page-break"></div>
+
+<h2>12. SECURITY, RELIABILITY, LIMITATIONS, AND FUTURE ENHANCEMENTS</h2>
+<h3>12.1 Reliability & Security</h3>
+<p>
+The application enforces strict array bound limits, validates numeric menu options against unexpected characters, uses bounded string copies (<code>strncpy</code>), and handles missing files gracefully.
+</p>
+<h3>12.2 Limitations</h3>
+<p>
+Currently designed as a console application with question statements capped at 256 characters. Storage is file-based (TXT/CSV) rather than an enterprise database.
+</p>
+<h3>12.3 Future Enhancements</h3>
+<p>
+Future versions can include a web GUI, automated question extraction from scanned DOCX/PDF files via OCR, and integration with large language model APIs for deep semantic Bloom classification.
+</p>
+
+<h2>13. CONCLUSION</h2>
+<p>
+The <b>Examination Question Paper Blueprint Checker</b> successfully automates the scrutiny and validation of examination question papers according to autonomous college regulations, Outcome-Based Education (OBE), and Bloom’s Revised Taxonomy. Developed in modular C, the system enforces mathematical precision in marks allocation, Course Outcome coverage (CO1–CO5), and cognitive level distributions while eliminating human calculation oversights. Generating persistent audit documentation in formatted text and Microsoft Excel formats provides an objective and verifiable audit trail that strengthens academic rigor and supports institutional accreditation.
+</p>
+
+<h2>14. REFERENCES</h2>
+<ol>
+  <li>Anderson, L. W., & Krathwohl, D. R. (2001). <i>A Taxonomy for Learning, Teaching, and Assessing: A Revision of Bloom's Taxonomy of Educational Objectives</i>. Longman, New York.</li>
+  <li>Kernighan, B. W., & Ritchie, D. M. (1988). <i>The C Programming Language</i> (2nd ed.). Prentice Hall, Englewood Cliffs, NJ.</li>
+  <li>National Board of Accreditation (NBA), India. <i>Outcome Based Education and Accreditation Manual for Undergraduate Engineering Programs</i>.</li>
+  <li>Rajeev Gandhi Memorial College of Engineering and Technology (Autonomous). <i>Academic Regulations and Examination Guidelines for B.Tech Programs (AY 2026-27)</i>.</li>
+  <li>ISO/IEC 9899:1999. <i>Programming Languages — C (C99 Standard)</i>.</li>
+</ol>
+
+</body>
+</html>

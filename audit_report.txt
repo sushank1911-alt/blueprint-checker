@@ -1,0 +1,76 @@
+========================================================================================
+                  RGM COLLEGE OF ENGINEERING AND TECHNOLOGY (AUTONOMOUS)
+                       DEPARTMENT OF CSE (ARTIFICIAL INTELLIGENCE & ML)
+                     OFFICIAL EXAMINATION BLUEPRINT COMPLIANCE REPORT
+========================================================================================
+ Report Generated On : 01-Nov-2026 12:16:19
+ Institution         : RGM College of Engineering and Technology (Autonomous), Nandyal
+ Department          : Department of CSE (AI & ML)
+ Subject             : Data Structures and Algorithms
+ Examination         : II B.Tech I Sem End Examinations (AY 2026-27)
+----------------------------------------------------------------------------------------
+ EXECUTIVE SUMMARY:
+   * Total Blueprint Marks Expected : 70
+   * Total Question Paper Marks Got : 70
+   * Compliance Percentage          : 100.00 %
+   * Paper Difficulty Index         : 3.26 / 6.00 (WELL-BALANCED (Recommended for Autonomous Exams))
+   * Audit Decision Status          : 100% COMPLIANT - APPROVED FOR EXAMINATION
+========================================================================================
+
+SECTION 1: UNIT-WISE MARKS AND QUESTION DISTRIBUTION
++----------+------------+------------+------------+------------+-----------------------+
+| Unit     | Exp Qs     | Act Qs     | Exp Marks  | Act Marks  | Status / Difference   |
++----------+------------+------------+------------+------------+-----------------------+
+| Unit 1   | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| Unit 2   | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| Unit 3   | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| Unit 4   | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| Unit 5   | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
++----------+------------+------------+------------+------------+-----------------------+
+
+SECTION 2: COURSE OUTCOME (OBE CO1 - CO5) DISTRIBUTION
++----------+------------+------------+------------+------------+-----------------------+
+| Outcome  | Exp Qs     | Act Qs     | Exp Marks  | Act Marks  | Status / Difference   |
++----------+------------+------------+------------+------------+-----------------------+
+| CO 1     | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| CO 2     | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| CO 3     | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| CO 4     | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
+| CO 5     | 2          | 2          | 14         | 14         | COMPLIANT (Exact)     |
++----------+------------+------------+------------+------------+-----------------------+
+
+SECTION 3: BLOOM'S TAXONOMY COGNITIVE LEVEL DISTRIBUTION
++--------------------+------------+------------+------------+------------+-------------+
+| Cognitive Level    | Exp Qs     | Act Qs     | Exp Marks  | Act Marks  | Difference  |
++--------------------+------------+------------+------------+------------+-------------+
+| L1 (Remember)      | 1          | 1          | 4          | 4          |          +0 |
+| L2 (Understand)    | 3          | 3          | 12         | 12         |          +0 |
+| L3 (Apply)         | 3          | 3          | 26         | 26         |          +0 |
+| L4 (Analyze)       | 2          | 2          | 18         | 18         |          +0 |
+| L5 (Evaluate)      | 1          | 1          | 10         | 10         |          +0 |
+| L6 (Create)        | 0          | 0          | 0          | 0          |          +0 |
++--------------------+------------+------------+------------+------------+-------------+
+
+SECTION 4: DETAILED QUESTION INVENTORY (WITH CO MAPPING)
++--------+--------+--------+----------------------------------------------------+---------------+-------+
+| Q.No   | Unit   | CO     | Question Statement                                 | Bloom's Level | Marks |
++--------+--------+--------+----------------------------------------------------+---------------+-------+
+| Q1(a)  | Unit 1 | CO 1  | Define asymptotic notations and state their signif | L1 (Remember) | 4     |
+| Q1(b)  | Unit 1 | CO 1  | Implement insertion and deletion operations in a D | L3 (Apply)    | 10    |
+| Q2(a)  | Unit 2 | CO 2  | Explain the postfix expression evaluation using st | L2 (Understand) | 4     |
+| Q2(b)  | Unit 2 | CO 2  | Solve the circular queue implementation and demons | L3 (Apply)    | 10    |
+| Q3(a)  | Unit 3 | CO 3  | Describe in-order, pre-order, and post-order trave | L2 (Understand) | 4     |
+| Q3(b)  | Unit 3 | CO 3  | Analyze LL, RR, LR, and RL rotations required to b | L4 (Analyze)  | 10    |
+| Q4(a)  | Unit 4 | CO 4  | Demonstrate Breadth First Search (BFS) graph trave | L3 (Apply)    | 6     |
+| Q4(b)  | Unit 4 | CO 4  | Analyze Dijkstra's single source shortest path alg | L4 (Analyze)  | 8     |
+| Q5(a)  | Unit 5 | CO 5  | Discuss open addressing techniques for hash table  | L2 (Understand) | 4     |
+| Q5(b)  | Unit 5 | CO 5  | Evaluate the best, average, and worst-case time co | L5 (Evaluate) | 10    |
++--------+--------+--------+----------------------------------------------------+---------------+-------+
+
+========================================================================================
+ VERIFICATION SIGNATURES:
+
+
+ _________________________                     _________________________
+ Prepared by Course Faculty                     Verified by HOD / Academic Auditor
+========================================================================================

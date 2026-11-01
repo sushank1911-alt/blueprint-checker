@@ -1,0 +1,6 @@
+# Build Artifacts
+*.o
+blueprint_checker
+
+# OS generated files
+.DS_Store
