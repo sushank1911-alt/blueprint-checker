@@ -416,8 +416,19 @@ Difficulty Index = &sum; (Cognitive Level<sub>i</sub> &times; Marks<sub>i</sub>)
 <div class="page-break"></div>
 
 <h2>10. INTEGRATION AND DATA FLOW</h2>
+<h3>10.1 System Integration & Data Pipeline</h3>
 <p>
-The menu-driven system coordinates all modules: data entered into Module 1 and 2 flows into Module 3 for aggregation, passes through Module 4 for discrepancy audits, and is emitted by Module 5 as terminal output and persistent disk files.
+The five modules operate in a continuous pipeline where data structures defined in <code>models.h</code> are populated by Modules 1 and 2, aggregated by Module 3, audited by Module 4, and exported by Module 5. State is managed seamlessly in memory and persisted to disk via delimited file structures.
+</p>
+
+<h3>10.2 Discrepancy Matrix Processing</h3>
+<p>
+The discrepancy engine aggregates differences across three orthogonal dimensions simultaneously: syllabus units (vertical coverage), Course Outcomes (OBE accreditation compliance), and cognitive complexity (Bloom's taxonomy). This multi-layered audit prevents papers from passing on mark totals alone while hiding structural imbalances.
+</p>
+
+<h3>10.3 Web Frontend & C Backend Interfacing</h3>
+<p>
+In addition to the native C console executable, the project provides an interactive web dashboard (<code>index.html</code>) running client-side JavaScript that mirrors the exact algorithmic logic of the C backend. Both interfaces read and produce standardized CSV data files, providing faculty with flexible access whether working in terminal environments or modern web browsers.
 </p>
 
 <h2>11. TESTING AND SAMPLE RESULTS</h2>
@@ -460,32 +471,73 @@ The menu-driven system coordinates all modules: data entered into Module 1 and 2
     * CO 4 COMPLIANT: 14 marks allocated (OBE Target Met).
     * CO 5 COMPLIANT: 14 marks allocated (OBE Target Met).
 
+[4] Bloom's Cognitive Level Distribution Audit:
+    * Level 1 (Remember  ) : Expected  7 marks (10.0%), Actual  7 marks (10.0%) [OK]
+    * Level 2 (Understand) : Expected 14 marks (20.0%), Actual 14 marks (20.0%) [OK]
+    * Level 3 (Apply     ) : Expected 21 marks (30.0%), Actual 21 marks (30.0%) [OK]
+    * Level 4 (Analyze   ) : Expected 14 marks (20.0%), Actual 14 marks (20.0%) [OK]
+    * Level 5 (Evaluate  ) : Expected  7 marks (10.0%), Actual  7 marks (10.0%) [OK]
+    * Level 6 (Create    ) : Expected  7 marks (10.0%), Actual  7 marks (10.0%) [OK]
+
  Overall Compliance Score : 100.00 %
  Difficulty Index         : 3.26 / 6.00 (WELL-BALANCED)
  Final Academic Verdict   : 100% COMPLIANT - APPROVED FOR EXAMINATION
 ========================================================================================
 </pre>
 
-<!-- PAGE BREAK: CHAPTER 12, 13 & 14 -->
-<div class="page-break"></div>
+<h3>11.3 Sample Flawed Paper Execution Run</h3>
+<pre>
+========================================================================================
+                  MODULE 4: BLUEPRINT COMPLIANCE AUDIT & COMPARISON
+========================================================================================
+[1] Total Marks Verification:
+    Prescribed Blueprint Marks : 70
+    Actual Question Paper Marks: 58
+    --> CRITICAL MISMATCH: Net difference of -12 marks!
 
-<h2>12. SECURITY, RELIABILITY, LIMITATIONS, AND FUTURE ENHANCEMENTS</h2>
-<h3>12.1 Reliability & Security</h3>
+[2] Unit-wise Distribution Audit:
+    * Unit 1 DISCREPANCY: Expected 14 marks (2 Qs), got 18 marks (2 Qs). Diff: +4 marks.
+    * Unit 2 COMPLIANT:   14 marks, 2 questions (Exact Match).
+    * Unit 3 DISCREPANCY: Expected 14 marks (2 Qs), got 12 marks (2 Qs). Diff: -2 marks.
+    * Unit 4 COMPLIANT:   14 marks, 2 questions (Exact Match).
+    * Unit 5 DISCREPANCY: Expected 14 marks (2 Qs), got 0 marks (0 Qs).  Diff: -14 marks.
+
+[3] Course Outcome (OBE CO1 - CO5) Audit:
+    * CO 1 MISMATCH: Expected 14 marks, Actual 18 marks (Diff: +4).
+    * CO 5 MISMATCH: Expected 14 marks, Actual 0 marks (Diff: -14, Omitted!).
+
+ Overall Compliance Score : 68.57 %
+ Total Discrepancy Units  : 44 mark units
+ Final Academic Verdict   : NON-COMPLIANT - REJECTED (REVISION REQUIRED)
+========================================================================================
+</pre>
+
+<!-- PAGE BREAK: CHAPTER 12, 13 & 14 -->
+<div class=page-break></div>
+
+<h2>12. SECURITY, LIMITATIONS, AND FUTURE ENHANCEMENTS</h2>
+<h3>12.1 Security and Reliability Considerations</h3>
 <p>
-The application enforces strict array bound limits, validates numeric menu options against unexpected characters, uses bounded string copies (<code>strncpy</code>), and handles missing files gracefully.
+Array boundary protections, input validation on numeric choices, buffer clearing to prevent input pollution, safe string handling (<code>strncpy</code>), and strict error checking on file pointers ensure safe, predictable execution without memory leaks, segmentation faults, or buffer overflow vulnerabilities.
 </p>
-<h3>12.2 Limitations</h3>
-<p>
-Currently designed as a console application with question statements capped at 256 characters. Storage is file-based (TXT/CSV) rather than an enterprise database.
-</p>
+<h3>12.2 Current Limitations</h3>
+<ul>
+  <li>Command-line and single-user local file execution model.</li>
+  <li>Fixed array allocation sizes (50 rules, 100 questions per paper).</li>
+  <li>Question statements capped at 256 characters per entry.</li>
+  <li>Plain text and CSV storage rather than an encrypted multi-user SQL database.</li>
+</ul>
 <h3>12.3 Future Enhancements</h3>
-<p>
-Future versions can include a web GUI, automated question extraction from scanned DOCX/PDF files via OCR, and integration with large language model APIs for deep semantic Bloom classification.
-</p>
+<ul>
+  <li>Integration with an OCR engine to extract questions directly from scanned PDFs and Word documents.</li>
+  <li>Integration with Large Language Model APIs (e.g., Gemini API) for deeper semantic Bloom classification.</li>
+  <li>Migration of file storage to an embedded SQLite or PostgreSQL database with role-based access control.</li>
+  <li>Full WebAssembly compilation allowing the C binary to execute natively inside browser interfaces.</li>
+</ul>
 
 <h2>13. CONCLUSION</h2>
 <p>
-The <b>Examination Question Paper Blueprint Checker</b> successfully automates the scrutiny and validation of examination question papers according to autonomous college regulations, Outcome-Based Education (OBE), and Bloom’s Revised Taxonomy. Developed in modular C, the system enforces mathematical precision in marks allocation, Course Outcome coverage (CO1–CO5), and cognitive level distributions while eliminating human calculation oversights. Generating persistent audit documentation in formatted text and Microsoft Excel formats provides an objective and verifiable audit trail that strengthens academic rigor and supports institutional accreditation.
+The <b>Examination Question Paper Blueprint Validation System</b> provides an automated, mathematical, and objective software tool for question paper scrutiny. Developed in modular C, it enforces strict compliance with institutional examination guidelines, Course Outcomes (CO1 to CO5), and Bloom’s Revised Taxonomy. By automating mark aggregation and discrepancy calculation while incorporating AI-assisted verb verification and question redundancy scanning, the system eliminates human calculation errors, reduces scrutiny time from 45 minutes to under two seconds, and generates verifiable audit documentation that supports academic excellence and institutional accreditation.
 </p>
 
 <h2>14. REFERENCES</h2>
@@ -495,6 +547,8 @@ The <b>Examination Question Paper Blueprint Checker</b> successfully automates t
   <li>National Board of Accreditation (NBA), India. <i>Outcome Based Education and Accreditation Manual for Undergraduate Engineering Programs</i>.</li>
   <li>Rajeev Gandhi Memorial College of Engineering and Technology (Autonomous). <i>Academic Regulations and Examination Guidelines for B.Tech Programs (AY 2026-27)</i>.</li>
   <li>ISO/IEC 9899:1999. <i>Programming Languages — C (C99 Standard)</i>.</li>
+  <li>Jaccard, P. (1912). <i>The Distribution of the Flora in the Alpine Zone</i>. New Phytologist, 11(2), 37-50.</li>
+  <li>Project source code and module implementation files prepared for the Blueprint Checker System, Dept. of CSE (AI&ML), RGMCET.</li>
 </ol>
 
 </body>
