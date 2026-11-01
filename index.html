@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examination Question Paper Blueprint Checker | RGMCET CSE(AI&ML)</title>
+<style>
+  :root {
+    --primary: #1F4E79;
+    --primary-light: #2E74B5;
+    --accent: #4F81BD;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  header h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
+  header p { font-size: 14px; opacity: 0.9; }
+  .badge-inst {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+  }
+  .nav-tab {
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-tab:hover { color: var(--primary); }
+  .nav-tab.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+  }
+  .container {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .grid-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .stat-val {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 6px 0;
+  }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+  .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: var(--primary-light); }
+  .btn-success { background: var(--success); color: white; }
+  .btn-warning { background: var(--warning); color: white; }
+  .btn-danger { background: var(--danger); color: white; }
+  .btn-outline { background: white; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { background: #f1f5f9; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: #f8fafc;
+    color: var(--primary);
+    font-weight: 700;
+  }
+  tr:hover { background: #fdfdfd; }
+  .badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    display: inline-block;
+  }
+  .badge-success { background: #dcfce7; color: #15803d; }
+  .badge-warning { background: #fef3c7; color: #b45309; }
+  .badge-danger { background: #fee2e2; color: #b91c1c; }
+  .badge-info { background: #e0f2fe; color: #0369a1; }
+  .progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--primary-light);
+    border-radius: 4px;
+    transition: width 0.3s;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: var(--text-muted); }
+  .form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    outline: none;
+  }
+  .form-control:focus { border-color: var(--primary-light); box-shadow: 0 0 0 2px rgba(46,116,181,0.15); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .ai-box {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge-inst">RAJEEV GANDHI MEMORIAL COLLEGE OF ENGG & TECH (AUTONOMOUS)</div>
+  <h1>Examination Question Paper Blueprint Checker & Validation System</h1>
+  <p>Department of CSE (Artificial Intelligence & Machine Learning) | AY 2026-27</p>
+</header>
+
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="switchTab('tab-dashboard')">📊 Audit Dashboard</div>
+  <div class="nav-tab" onclick="switchTab('tab-blueprint')">📐 Blueprint Manager (Module 1)</div>
+  <div class="nav-tab" onclick="switchTab('tab-questions')">📝 Question Inventory (Module 2)</div>
+  <div class="nav-tab" onclick="switchTab('tab-ai')">🧠 AI Similarity & Verb Check</div>
+  <div class="nav-tab" onclick="switchTab('tab-report')">📜 Academic Project Report</div>
+</div>
+
+<div class="container">
+
+  <!-- TAB 1: AUDIT DASHBOARD -->
+  <div id="tab-dashboard" class="tab-content active">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <h2 style="font-size: 18px; font-weight: 700; color: var(--primary);">Real-Time Examination Audit Summary</h2>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-success" onclick="loadTestScenario(1)">✔ Load Compliant Paper (100%)</button>
+        <button class="btn btn-warning" onclick="loadTestScenario(2)">⚠ Load Flawed Paper (&lt;80%)</button>
+        <button class="btn btn-primary" onclick="exportCSV()">📥 Download Excel CSV</button>
+      </div>
+    </div>
+
+    <div class="grid-stats">
+      <div class="stat-card">
+        <div class="stat-lbl">Compliance Score</div>
+        <div id="stat-score" class="stat-val" style="color: var(--success);">100.0%</div>
+        <span id="badge-verdict" class="badge badge-success">APPROVED FOR EXAMINATION</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Paper Difficulty Index</div>
+        <div id="stat-diff" class="stat-val" style="color: var(--primary);">3.26 / 6.00</div>
+        <span class="badge badge-info">WELL-BALANCED</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Total Marks Audit</div>
+        <div id="stat-marks" class="stat-val" style="color: var(--primary);">70 / 70</div>
+        <span id="badge-marks" class="badge badge-success">Exact Match</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Total Questions</div>
+        <div id="stat-questions" class="stat-val" style="color: var(--primary);">10 Questions</div>
+        <span class="badge badge-info">5 Units Covered</span>
+      </div>
+    </div>
+
+    <!-- Unit Distribution -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Unit-wise Marks & Question Distribution</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Unit</th>
+            <th>Expected Qs</th>
+            <th>Actual Qs</th>
+            <th>Expected Marks</th>
+            <th>Actual Marks</th>
+            <th>Marks Diff</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-units"></tbody>
+      </table>
+    </div>
+
+    <!-- Course Outcome & Bloom's Distribution in 2 columns -->
+    <div class="grid-2">
+      <!-- Course Outcomes (CO1 to CO5) -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Outcome-Based Education (CO1 - CO5) Audit</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Outcome</th>
+              <th>Expected</th>
+              <th>Actual</th>
+              <th>Diff</th>
+              <th>OBE Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-cos"></tbody>
+        </table>
+      </div>
+
+      <!-- Bloom's Taxonomy Cognitive Levels -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Bloom's Cognitive Level Distribution (L1 - L6)</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Cognitive Level</th>
+              <th>Exp Marks</th>
+              <th>Act Marks</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-blooms"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB 2: BLUEPRINT MANAGER -->
+  <div id="tab-blueprint" class="tab-content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Module 1: Reference Blueprint Rules</div>
+        <button class="btn btn-primary" onclick="resetDefaultBlueprint()">Reset to RGM 70-Marks Blueprint</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Rule ID</th>
+            <th>Unit</th>
+            <th>CO</th>
+            <th>Topic Name</th>
+            <th>Cognitive Level</th>
+            <th>Expected Qs</th>
+            <th>Expected Marks</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-blueprint"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 3: QUESTION INVENTORY -->
+  <div id="tab-questions" class="tab-content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Module 2: Question Paper Inventory</div>
+      </div>
+
+      <!-- Add Question Form with AI Verb Detection -->
+      <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 20px;">
+        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--primary);">Add New Question Entry</h4>
+        <div class="grid-3">
+          <div class="form-group">
+            <label>Question No.</label>
+            <input type="text" id="new-qno" class="form-control" placeholder="e.g. Q6(a)">
+          </div>
+          <div class="form-group">
+            <label>Unit (1-5)</label>
+            <input type="number" id="new-unit" class="form-control" min="1" max="5" value="1">
+          </div>
+          <div class="form-group">
+            <label>Course Outcome (CO1-CO5)</label>
+            <input type="number" id="new-co" class="form-control" min="1" max="5" value="1">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Question Content Statement</label>
+          <input type="text" id="new-content" class="form-control" placeholder="e.g. Explain binary search algorithm..." oninput="onQuestionInput(this.value)">
+        </div>
+        <div id="ai-suggestion-box" class="ai-box" style="display: none;">
+          <strong>🧠 AI Suggestion:</strong> Action verb detected suggests <span id="ai-suggested-level" style="font-weight: 700; color: var(--primary);">L2 (Understand)</span>.
+        </div>
+        <div class="grid-3" style="margin-top: 10px;">
+          <div class="form-group">
+            <label>Topic</label>
+            <input type="text" id="new-topic" class="form-control" placeholder="Topic name">
+          </div>
+          <div class="form-group">
+            <label>Cognitive Level</label>
+            <select id="new-cog" class="form-control">
+              <option value="1">L1 (Remember)</option>
+              <option value="2" selected>L2 (Understand)</option>
+              <option value="3">L3 (Apply)</option>
+              <option value="4">L4 (Analyze)</option>
+              <option value="5">L5 (Evaluate)</option>
+              <option value="6">L6 (Create)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Marks</label>
+            <input type="number" id="new-marks" class="form-control" value="7">
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="addNewQuestion()">+ Add Question to Inventory</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Q.No</th>
+            <th>Unit</th>
+            <th>CO</th>
+            <th>Question Content</th>
+            <th>Bloom's Level</th>
+            <th>Marks</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-questions"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB 4: AI SIMILARITY & REDUNDANCY -->
+  <div id="tab-ai" class="tab-content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">🧠 AI Question Redundancy & Jaccard Similarity Checker</div>
+        <button class="btn btn-primary" onclick="runSimilarityCheck()">Run Pairwise Similarity Scan</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        This feature computes the tokenized Jaccard similarity between all pairs of questions in the paper:
+        <code>J(QA, QB) = |QA ∩ QB| / |QA ∪ QB|</code>. Pairs exceeding 35% similarity are flagged to prevent duplicate questions.
+      </p>
+      <div id="similarity-results">
+        <div class="badge badge-success" style="padding: 10px 16px; font-size: 13px;">
+          ✔ Click 'Run Pairwise Similarity Scan' to inspect current question paper.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: ACADEMIC PROJECT REPORT -->
+  <div id="tab-report" class="tab-content">
+    <div class="card" style="line-height: 1.8;">
+      <div class="card-header">
+        <div class="card-title">Official Project Documentation & Academic Report</div>
+        <div style="display: flex; gap: 8px;">
+          <a href="PROJECT_REPORT.docx" class="btn btn-primary" download>📥 Download Official Word File (.docx)</a>
+          <button class="btn btn-outline" onclick="window.print()">🖨 Print / Save PDF</button>
+        </div>
+      </div>
+      <div style="background: white; padding: 24px; border-radius: 8px;">
+        <h3 style="color: var(--primary); margin-bottom: 8px;">Examination Question Paper Blueprint Validation System</h3>
+        <p><strong>Department:</strong> CSE (Artificial Intelligence & Machine Learning)</p>
+        <p><strong>Institution:</strong> Rajeev Gandhi Memorial College of Engineering & Technology (Autonomous), Nandyal</p>
+        <p><strong>Academic Year:</strong> 2026-2027 | II B.Tech I Sem</p>
+        <hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">
+        <p><strong>Abstract:</strong> The Examination Question Paper Blueprint Validation System is an automated academic software tool developed in C that audits, verifies, and analyzes semester examination question papers against prescribed institutional blueprints. In autonomous engineering colleges such as Rajeev Gandhi Memorial College of Engineering & Technology, question papers must adhere strictly to assessment guidelines established under Outcome-Based Education (OBE) and Bloom’s Revised Taxonomy. The system verifies that questions and marks are evenly distributed across course units, Course Outcomes (CO1 to CO5), and cognitive levels (L1 Remember to L6 Create).</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Data store
+let blueprintRules = [
+  { id: 1, unit: 1, co: 1, topic: "Linear Data Structures & Arrays", cog: 1, exp_q: 1, exp_m: 4 },
+  { id: 2, unit: 1, co: 1, topic: "Singly & Doubly Linked Lists", cog: 3, exp_q: 1, exp_m: 10 },
+  { id: 3, unit: 2, co: 2, topic: "Stack Operations & Applications", cog: 2, exp_q: 1, exp_m: 4 },
+  { id: 4, unit: 2, co: 2, topic: "Queue & Circular Queue Logic", cog: 3, exp_q: 1, exp_m: 10 },
+  { id: 5, unit: 3, co: 3, topic: "Binary Tree Traversals", cog: 2, exp_q: 1, exp_m: 4 },
+  { id: 6, unit: 3, co: 3, topic: "AVL Trees & BST Balancing", cog: 4, exp_q: 1, exp_m: 10 },
+  { id: 7, unit: 4, co: 4, topic: "Graph Representations (BFS/DFS)", cog: 3, exp_q: 1, exp_m: 6 },
+  { id: 8, unit: 4, co: 4, topic: "Shortest Paths (Dijkstra/Prims)", cog: 4, exp_q: 1, exp_m: 8 },
+  { id: 9, unit: 5, co: 5, topic: "Hashing Techniques & Collisions", cog: 2, exp_q: 1, exp_m: 4 },
+  { id: 10, unit: 5, co: 5, topic: "Search & Sorting Complexities", cog: 5, exp_q: 1, exp_m: 10 }
+];
+
+let questions = [
+  { qno: "Q1(a)", content: "Define asymptotic notations and state their significance in algorithm analysis.", unit: 1, co: 1, topic: "Linear Data Structures", cog: 1, marks: 4 },
+  { qno: "Q1(b)", content: "Implement insertion and deletion operations in a Doubly Linked List with code.", unit: 1, co: 1, topic: "Linked Lists", cog: 3, marks: 10 },
+  { qno: "Q2(a)", content: "Explain the postfix expression evaluation using stack with an example.", unit: 2, co: 2, topic: "Stack Operations", cog: 2, marks: 4 },
+  { qno: "Q2(b)", content: "Solve the circular queue implementation and demonstrate handling of boundary conditions.", unit: 2, co: 2, topic: "Queue Logic", cog: 3, marks: 10 },
+  { qno: "Q3(a)", content: "Describe in-order, pre-order, and post-order traversals of a binary tree.", unit: 3, co: 3, topic: "Binary Trees", cog: 2, marks: 4 },
+  { qno: "Q3(b)", content: "Analyze LL, RR, LR, and RL rotations required to balance an AVL tree after insertions.", unit: 3, co: 3, topic: "AVL Trees", cog: 4, marks: 10 },
+  { qno: "Q4(a)", content: "Demonstrate Breadth First Search (BFS) graph traversal algorithm with a trace.", unit: 4, co: 4, topic: "Graph Traversal", cog: 3, marks: 6 },
+  { qno: "Q4(b)", content: "Analyze Dijkstra's single source shortest path algorithm on a weighted directed graph.", unit: 4, co: 4, topic: "Shortest Path", cog: 4, marks: 8 },
+  { qno: "Q5(a)", content: "Discuss open addressing techniques for hash table collision resolution.", unit: 5, co: 5, topic: "Hashing", cog: 2, marks: 4 },
+  { qno: "Q5(b)", content: "Evaluate the best, average, and worst-case time complexities of Quick Sort vs Merge Sort.", unit: 5, co: 5, topic: "Sorting", cog: 5, marks: 10 }
+];
+
+const bloomNames = ["", "L1 (Remember)", "L2 (Understand)", "L3 (Apply)", "L4 (Analyze)", "L5 (Evaluate)", "L6 (Create)"];
+
+function switchTab(tabId) {
+  document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(el => el.classList.remove("active"));
+  document.getElementById(tabId).classList.add("active");
+  event.target.classList.add("active");
+}
+
+function renderAll() {
+  renderDashboard();
+  renderBlueprintTable();
+  renderQuestionsTable();
+}
+
+function renderDashboard() {
+  let expUnitMarks = [0,0,0,0,0,0];
+  let actUnitMarks = [0,0,0,0,0,0];
+  let expUnitQs = [0,0,0,0,0,0];
+  let actUnitQs = [0,0,0,0,0,0];
+
+  let expCoMarks = [0,0,0,0,0,0];
+  let actCoMarks = [0,0,0,0,0,0];
+
+  let expCogMarks = [0,0,0,0,0,0,0];
+  let actCogMarks = [0,0,0,0,0,0,0];
+
+  let totalExpMarks = 0;
+  let totalActMarks = 0;
+  let weightedDiff = 0;
+
+  blueprintRules.forEach(r => {
+    expUnitMarks[r.unit] += r.exp_m;
+    expUnitQs[r.unit] += r.exp_q;
+    expCoMarks[r.co] += r.exp_m;
+    expCogMarks[r.cog] += r.exp_m;
+    totalExpMarks += r.exp_m;
+  });
+
+  questions.forEach(q => {
+    actUnitMarks[q.unit] += q.marks;
+    actUnitQs[q.unit] += 1;
+    actCoMarks[q.co] += q.marks;
+    actCogMarks[q.cog] += q.marks;
+    totalActMarks += q.marks;
+    weightedDiff += q.cog * q.marks;
+  });
+
+  let totalMarkError = Math.abs(totalActMarks - totalExpMarks);
+  for (let u = 1; u <= 5; u++) totalMarkError += Math.abs(actUnitMarks[u] - expUnitMarks[u]);
+  for (let c = 1; c <= 5; c++) totalMarkError += Math.abs(actCoMarks[c] - expCoMarks[c]);
+  for (let l = 1; l <= 6; l++) totalMarkError += Math.abs(actCogMarks[l] - expCogMarks[l]);
+
+  let complianceScore = Math.max(0, 100 - ((totalMarkError / (2 * totalExpMarks)) * 100));
+  let diffIndex = totalActMarks > 0 ? (weightedDiff / totalActMarks).toFixed(2) : "0.00";
+
+  document.getElementById("stat-score").textContent = complianceScore.toFixed(1) + "%";
+  document.getElementById("stat-diff").textContent = diffIndex + " / 6.00";
+  document.getElementById("stat-marks").textContent = totalActMarks + " / " + totalExpMarks;
+  document.getElementById("stat-questions").textContent = questions.length + " Questions";
+
+  let verdictEl = document.getElementById("badge-verdict");
+  if (complianceScore >= 99) {
+    verdictEl.textContent = "APPROVED (100% COMPLIANT)";
+    verdictEl.className = "badge badge-success";
+    document.getElementById("stat-score").style.color = "var(--success)";
+  } else if (complianceScore >= 80) {
+    verdictEl.textContent = "PARTIAL COMPLIANCE (MINOR DEFECTS)";
+    verdictEl.className = "badge badge-warning";
+    document.getElementById("stat-score").style.color = "var(--warning)";
+  } else {
+    verdictEl.textContent = "REJECTED (NON-COMPLIANT)";
+    verdictEl.className = "badge badge-danger";
+    document.getElementById("stat-score").style.color = "var(--danger)";
+  }
+
+  // Render Units table
+  let uHtml = "";
+  for (let u = 1; u <= 5; u++) {
+    let diff = actUnitMarks[u] - expUnitMarks[u];
+    let badge = diff === 0 
+      ? '<span class="badge badge-success">Match (Exact)</span>' 
+      : (diff > 0 ? `<span class="badge badge-warning">+${diff} Over</span>` : `<span class="badge badge-danger">${diff} Under</span>`);
+    uHtml += `<tr>
+      <td><strong>Unit ${u}</strong></td>
+      <td>${expUnitQs[u]}</td>
+      <td>${actUnitQs[u]}</td>
+      <td>${expUnitMarks[u]} Marks</td>
+      <td>${actUnitMarks[u]} Marks</td>
+      <td>${diff >= 0 ? "+" + diff : diff}</td>
+      <td>${badge}</td>
+    </tr>`;
+  }
+  document.getElementById("tbody-units").innerHTML = uHtml;
+
+  // Render COs table
+  let cHtml = "";
+  for (let c = 1; c <= 5; c++) {
+    let diff = actCoMarks[c] - expCoMarks[c];
+    let badge = diff === 0 
+      ? '<span class="badge badge-success">Target Met</span>' 
+      : `<span class="badge badge-warning">${diff >= 0 ? "+" + diff : diff}</span>`;
+    cHtml += `<tr>
+      <td><strong>CO ${c}</strong></td>
+      <td>${expCoMarks[c]} M</td>
+      <td>${actCoMarks[c]} M</td>
+      <td>${diff >= 0 ? "+" + diff : diff}</td>
+      <td>${badge}</td>
+    </tr>`;
+  }
+  document.getElementById("tbody-cos").innerHTML = cHtml;
+
+  // Render Bloom's table
+  let bHtml = "";
+  for (let l = 1; l <= 6; l++) {
+    let pct = totalActMarks > 0 ? Math.round((actCogMarks[l] / totalActMarks) * 100) : 0;
+    bHtml += `<tr>
+      <td>${bloomNames[l]}</td>
+      <td>${expCogMarks[l]} M</td>
+      <td>${actCogMarks[l]} M</td>
+      <td style="width: 140px;">
+        <div style="font-size: 11px; font-weight: 700;">${pct}%</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: ${pct}%;"></div></div>
+      </td>
+    </tr>`;
+  }
+  document.getElementById("tbody-blooms").innerHTML = bHtml;
+}
+
+function renderBlueprintTable() {
+  let html = "";
+  blueprintRules.forEach(r => {
+    html += `<tr>
+      <td>${r.id}</td>
+      <td>Unit ${r.unit}</td>
+      <td>CO ${r.co}</td>
+      <td>${r.topic}</td>
+      <td>${bloomNames[r.cog]}</td>
+      <td>${r.exp_q}</td>
+      <td>${r.exp_m} Marks</td>
+    </tr>`;
+  });
+  document.getElementById("tbody-blueprint").innerHTML = html;
+}
+
+function renderQuestionsTable() {
+  let html = "";
+  questions.forEach((q, idx) => {
+    html += `<tr>
+      <td><strong>${q.qno}</strong></td>
+      <td>Unit ${q.unit}</td>
+      <td>CO ${q.co}</td>
+      <td>${q.content}</td>
+      <td>${bloomNames[q.cog]}</td>
+      <td><strong>${q.marks}</strong></td>
+      <td><button class="btn btn-danger" style="padding: 2px 8px; font-size: 11px;" onclick="deleteQuestion(${idx})">Delete</button></td>
+    </tr>`;
+  });
+  document.getElementById("tbody-questions").innerHTML = html;
+}
+
+function onQuestionInput(text) {
+  let lower = text.toLowerCase();
+  let box = document.getElementById("ai-suggestion-box");
+  let lbl = document.getElementById("ai-suggested-level");
+  let sel = document.getElementById("new-cog");
+
+  if (/design|formulate|construct|develop|compose|propose/.test(lower)) {
+    box.style.display = "block"; lbl.textContent = "L6 (Create)"; sel.value = "6";
+  } else if (/evaluate|justify|critique|verify|assess/.test(lower)) {
+    box.style.display = "block"; lbl.textContent = "L5 (Evaluate)"; sel.value = "5";
+  } else if (/analyze|differentiate|distinguish|compare|contrast/.test(lower)) {
+    box.style.display = "block"; lbl.textContent = "L4 (Analyze)"; sel.value = "4";
+  } else if (/calculate|compute|solve|implement|demonstrate|apply/.test(lower)) {
+    box.style.display = "block"; lbl.textContent = "L3 (Apply)"; sel.value = "3";
+  } else if (/explain|describe|discuss|outline|summarize|illustrate/.test(lower)) {
+    box.style.display = "block"; lbl.textContent = "L2 (Understand)"; sel.value = "2";
+  } else if (/define|state|list|name|recall|identify|what is/.test(lower)) {
+    box.style.display = "block"; lbl.textContent = "L1 (Remember)"; sel.value = "1";
+  } else {
+    box.style.display = "none";
+  }
+}
+
+function addNewQuestion() {
+  let qno = document.getElementById("new-qno").value || "Q" + (questions.length + 1);
+  let unit = parseInt(document.getElementById("new-unit").value) || 1;
+  let co = parseInt(document.getElementById("new-co").value) || 1;
+  let content = document.getElementById("new-content").value;
+  let topic = document.getElementById("new-topic").value || "Unit " + unit;
+  let cog = parseInt(document.getElementById("new-cog").value) || 2;
+  let marks = parseInt(document.getElementById("new-marks").value) || 7;
+
+  if (!content) { alert("Please enter question content!"); return; }
+
+  questions.push({ qno, content, unit, co, topic, cog, marks });
+  document.getElementById("new-content").value = "";
+  document.getElementById("ai-suggestion-box").style.display = "none";
+  renderAll();
+  alert("Question added to inventory!");
+}
+
+function deleteQuestion(idx) {
+  questions.splice(idx, 1);
+  renderAll();
+}
+
+function loadTestScenario(scen) {
+  if (scen === 1) {
+    // Compliant 70 marks paper
+    questions = [
+      { qno: "Q1(a)", content: "Define asymptotic notations and state their significance in algorithm analysis.", unit: 1, co: 1, topic: "Linear Data Structures", cog: 1, marks: 4 },
+      { qno: "Q1(b)", content: "Implement insertion and deletion operations in a Doubly Linked List with code.", unit: 1, co: 1, topic: "Linked Lists", cog: 3, marks: 10 },
+      { qno: "Q2(a)", content: "Explain the postfix expression evaluation using stack with an example.", unit: 2, co: 2, topic: "Stack Operations", cog: 2, marks: 4 },
+      { qno: "Q2(b)", content: "Solve the circular queue implementation and demonstrate handling of boundary conditions.", unit: 2, co: 2, topic: "Queue Logic", cog: 3, marks: 10 },
+      { qno: "Q3(a)", content: "Describe in-order, pre-order, and post-order traversals of a binary tree.", unit: 3, co: 3, topic: "Binary Trees", cog: 2, marks: 4 },
+      { qno: "Q3(b)", content: "Analyze LL, RR, LR, and RL rotations required to balance an AVL tree after insertions.", unit: 3, co: 3, topic: "AVL Trees", cog: 4, marks: 10 },
+      { qno: "Q4(a)", content: "Demonstrate Breadth First Search (BFS) graph traversal algorithm with a trace.", unit: 4, co: 4, topic: "Graph Traversal", cog: 3, marks: 6 },
+      { qno: "Q4(b)", content: "Analyze Dijkstra's single source shortest path algorithm on a weighted directed graph.", unit: 4, co: 4, topic: "Shortest Path", cog: 4, marks: 8 },
+      { qno: "Q5(a)", content: "Discuss open addressing techniques for hash table collision resolution.", unit: 5, co: 5, topic: "Hashing", cog: 2, marks: 4 },
+      { qno: "Q5(b)", content: "Evaluate the best, average, and worst-case time complexities of Quick Sort vs Merge Sort.", unit: 5, co: 5, topic: "Sorting", cog: 5, marks: 10 }
+    ];
+  } else {
+    // Flawed paper (Unit 5 missing, over-allocation in Unit 1)
+    questions = [
+      { qno: "Q1(a)", content: "Define asymptotic notations.", unit: 1, co: 1, topic: "Linear Data Structures", cog: 1, marks: 6 },
+      { qno: "Q1(b)", content: "Explain singly linked list insertion with algorithms.", unit: 1, co: 1, topic: "Linked Lists", cog: 2, marks: 12 },
+      { qno: "Q2(a)", content: "Explain stack operations and their applications in detail.", unit: 2, co: 2, topic: "Stack Operations", cog: 2, marks: 4 },
+      { qno: "Q2(b)", content: "Solve queue operations and describe stack operations.", unit: 2, co: 2, topic: "Queue Logic", cog: 3, marks: 10 },
+      { qno: "Q3(a)", content: "List tree traversal types.", unit: 3, co: 3, topic: "Binary Trees", cog: 1, marks: 4 },
+      { qno: "Q3(b)", content: "Define AVL tree properties.", unit: 3, co: 3, topic: "AVL Trees", cog: 1, marks: 8 },
+      { qno: "Q4(a)", content: "Demonstrate BFS graph traversal.", unit: 4, co: 4, topic: "Graph Traversal", cog: 3, marks: 6 },
+      { qno: "Q4(b)", content: "Analyze Dijkstra's algorithm on a graph.", unit: 4, co: 4, topic: "Shortest Path", cog: 4, marks: 8 }
+    ];
+  }
+  renderAll();
+}
+
+function runSimilarityCheck() {
+  let container = document.getElementById("similarity-results");
+  let stopwords = new Set(["the","is","at","which","on","a","an","and","or","in","to","of","for","with","by","as","from","that","this","it","are","was","were","be"]);
+  
+  function getTokens(str) {
+    return str.toLowerCase().replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter(w => w.length > 2 && !stopwords.has(w));
+  }
+
+  let flagged = [];
+  for (let i = 0; i < questions.length; i++) {
+    for (let j = i + 1; j < questions.length; j++) {
+      let t1 = new Set(getTokens(questions[i].content));
+      let t2 = new Set(getTokens(questions[j].content));
+      let intersection = new Set([...t1].filter(x => t2.has(x)));
+      let union = new Set([...t1, ...t2]);
+      let sim = union.size > 0 ? (intersection.size / union.size) : 0;
+      if (sim >= 0.35) {
+        flagged.push({ q1: questions[i].qno, q2: questions[j].qno, sim: (sim * 100).toFixed(1), c1: questions[i].content, c2: questions[j].content });
+      }
+    }
+  }
+
+  if (flagged.length === 0) {
+    container.innerHTML = `<div class="badge badge-success" style="padding: 12px 18px; font-size: 14px;">
+      ✔ PASSED: No redundant or duplicated questions detected across the examination paper!
+    </div>`;
+  } else {
+    let html = `<div style="color: var(--danger); font-weight: 700; margin-bottom: 12px;">⚠ Found ${flagged.length} potential duplicate/redundant question pair(s):</div>`;
+    flagged.forEach(f => {
+      html += `<div style="background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; padding: 12px; margin-bottom: 10px;">
+        <span class="badge badge-danger">${f.sim}% Similarity Alert</span> between <strong>${f.q1}</strong> and <strong>${f.q2}</strong>
+        <p style="margin-top: 6px; font-size: 12px; color: #475569;">• ${f.q1}: "${f.c1}"</p>
+        <p style="font-size: 12px; color: #475569;">• ${f.q2}: "${f.c2}"</p>
+      </div>`;
+    });
+    container.innerHTML = html;
+  }
+}
+
+function exportCSV() {
+  let csv = "Question No,Unit,Course Outcome,Question Statement,Cognitive Level,Marks\n";
+  questions.forEach(q => {
+    csv += `"${q.qno}","Unit ${q.unit}","CO ${q.co}","${q.content.replace(/"/g, '""')}","${bloomNames[q.cog]}",${q.marks}\n`;
+  });
+  let blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  let url = URL.createObjectURL(blob);
+  let a = document.createElement("a");
+  a.href = url;
+  a.download = "audit_report.csv";
+  a.click();
+}
+
+function resetDefaultBlueprint() {
+  alert("Default Blueprint loaded.");
+  renderAll();
+}
+
+// Initial render
+renderAll();
+</script>
+
+</body>
+</html>
