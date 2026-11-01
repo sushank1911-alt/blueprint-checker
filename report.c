@@ -140,9 +140,13 @@ int export_audit_report_to_file(const Blueprint *bp, const QuestionPaper *qp, co
     fprintf(fp, "+--------+--------+--------+----------------------------------------------------+---------------+-------+\n\n");
 
     fprintf(fp, "========================================================================================\n");
-    fprintf(fp, " VERIFICATION SIGNATURES:\n\n\n");
+    fprintf(fp, " PROJECT TEAM & VERIFICATION SIGNATURES:\n");
+    fprintf(fp, "   * Project Supervisor : Dr. G. Chakrapani (Assistant Professor, CSE AI&ML)\n");
+    fprintf(fp, "   * Student Team       : K. Sushank (25091A33M7), Y. V. Jaswanth Reddy (25091A33P6),\n");
+    fprintf(fp, "                          S. Jafar Hussain Ali (24091A3359)\n\n\n");
     fprintf(fp, " _________________________                     _________________________\n");
-    fprintf(fp, " Prepared by Course Faculty                     Verified by HOD / Academic Auditor\n");
+    fprintf(fp, " Dr. G. Chakrapani                             Dr. G. Kishore Kumar\n");
+    fprintf(fp, " Project Supervisor                            Professor & HOD, CSE (AI&ML)\n");
     fprintf(fp, "========================================================================================\n");
 
     fclose(fp);

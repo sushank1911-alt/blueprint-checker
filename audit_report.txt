@@ -3,7 +3,7 @@
                        DEPARTMENT OF CSE (ARTIFICIAL INTELLIGENCE & ML)
                      OFFICIAL EXAMINATION BLUEPRINT COMPLIANCE REPORT
 ========================================================================================
- Report Generated On : 01-Nov-2026 12:16:19
+ Report Generated On : 01-Nov-2026 13:26:34
  Institution         : RGM College of Engineering and Technology (Autonomous), Nandyal
  Department          : Department of CSE (AI & ML)
  Subject             : Data Structures and Algorithms
@@ -68,9 +68,13 @@ SECTION 4: DETAILED QUESTION INVENTORY (WITH CO MAPPING)
 +--------+--------+--------+----------------------------------------------------+---------------+-------+
 
 ========================================================================================
- VERIFICATION SIGNATURES:
+ PROJECT TEAM & VERIFICATION SIGNATURES:
+   * Project Supervisor : Dr. G. Chakrapani (Assistant Professor, CSE AI&ML)
+   * Student Team       : K. Sushank (25091A33M7), Y. V. Jaswanth Reddy (25091A33P6),
+                          S. Jafar Hussain Ali (24091A3359)
 
 
  _________________________                     _________________________
- Prepared by Course Faculty                     Verified by HOD / Academic Auditor
+ Dr. G. Chakrapani                             Dr. G. Kishore Kumar
+ Project Supervisor                            Professor & HOD, CSE (AI&ML)
 ========================================================================================

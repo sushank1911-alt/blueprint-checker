@@ -3,7 +3,13 @@
 **Institution**: RGM College of Engineering and Technology (Autonomous), Nandyal  
 **Department**: Department of Computer Science & Engineering (Artificial Intelligence & Machine Learning)  
 **Academic Year**: AY 2026-27 | II B.Tech I Semester  
-**Course Assignment Project**: Blueprint Checker  
+**Course Assignment Project**: Question Paper Blueprint Checker  
+**Project Supervisor / Mentor**: Dr. G. Chakrapani  
+
+### Team Members:
+1. **K. Sushank** (Regd. No: `25091A33M7`)
+2. **Y. V. Jaswanth Reddy** (Regd. No: `25091A33P6`)
+3. **S. Jafar Hussain Ali** (Regd. No: `24091A3359`)  
 
 ---
 
